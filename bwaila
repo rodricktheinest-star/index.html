@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="sw">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bwaila Academic Arena - Elite English Mastery OS</title>
+    <!-- FontAwesome Pro Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-base: #030712;
+            --card-glass: rgba(13, 22, 40, 0.9);
+            --neon-gold: #ffb703;
+            --neon-blue: #00f3ff;
+            --neon-purple: #9d4edd;
+            --neon-green: #00ff88;
+            --neon-pink: #ff007f;
+            --text-main: #f3f4f6;
+            --text-muted: #9ca3af;
+            --border-glass: rgba(255, 183, 3, 0.4);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            transition: all 0.3s ease;
+        }
+
+        body {
+            background-color: var(--bg-base);
+            background-image: 
+                radial-gradient(circle at 10% 10%, rgba(255, 183, 3, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 90% 90%, rgba(0, 243, 255, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 50% 50%, rgba(157, 78, 221, 0.1) 0%, transparent 50%);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 25px 15px;
+        }
+
+        .app-container {
+            width: 100%;
+            max-width: 680px;
+            background: var(--card-glass);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border: 1px solid var(--border-glass);
+            border-radius: 30px;
+            padding: 30px;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.85), 0 0 50px rgba(255, 183, 3, 0.2);
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+            animation: fadeInApp 0.8s ease-out;
+        }
+
+        @keyframes fadeInApp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Animated Brand Header */
+        .brand-header {
+            text-align: center;
+            position: relative;
+            padding-bottom: 12px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .avatar-wrapper {
+            display: inline-block;
+            position: relative;
+            margin-bottom: 12px;
+        }
+
+        .avatar-glow {
+            width: 115px;
+            height: 115px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--neon-gold);
+            box-shadow: 0 0 35px rgba(255, 183, 3, 0.6), inset 0 0 15px rgba(0, 243, 255, 0.4);
+            animation: floatLogo 3s ease-in-out infinite;
+        }
+
+        @keyframes floatLogo {
+            0% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(2deg); }
+            100% { transform: translateY(0px) rotate(0deg); }
+        }
+
+        .brand-title {
+            font-size: 27px;
+            font-weight: 900;
+            letter-spacing: 2px;
+            background: linear-gradient(135deg, var(--neon-gold), #ff8800, var(--neon-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-transform: uppercase;
+        }
+
+        .brand-sub {
+            font-size: 12px;
+            color: var(--text-muted);
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            margin-top: 4px;
+        }
+
+        /* Navigation Tabs - Modern Grid */
+        .nav-tabs {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 6px;
+            background: rgba(255, 255, 255, 0.04);
+            padding: 6px;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .tab-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            padding: 10px 0;
+            font-size: 9px;
+            border-radius: 12px;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            font-weight: bold;
+        }
+
+        .tab-btn i { font-size: 14px; }
+
+        .tab-btn.active {
+            background: rgba(255, 183, 3, 0.22);
+            color: var(--neon-gold);
+            border: 1px solid rgba(255, 183, 3, 0.5);
+            box-shadow: 0 0 15px rgba(255, 183, 3, 0.3);
+            transform: scale(1.03);
+        }
+
+        /* Tab Screens with Smooth Transition */
+        .tab-content {
+            display: none;
+            flex-direction: column;
+            gap: 20px;
+            animation: slideUp 0.4s ease-out;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .tab-content.active { display: flex; }
+
+        /* Form Controls */
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        label {
+            font-size: 11px;
+            color: var(--neon-gold);
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            font-weight: 700;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 14px 16px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 14px;
+            color: var(--text-main);
+            font-size: 13px;
+            outline: none;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            border-color: var(--neon-gold);
+            box-shadow: 0 0 15px rgba(255, 183, 3, 0.3);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        select option { background-color: #0d1628; color: white; }
+
+        /* Control Number Box */
+        .ctrl-box {
+            background: linear-gradient(135deg, rgba(255, 183, 3, 0.15), rgba(0, 243, 255, 0.15));
+            border: 1px dashed var(--neon-gold);
+            border-radius: 16px;
+            padding: 18px;
+            text-align: center;
+            display: none;
+        }
+
+        .ctrl-number {
+            font-size: 24px;
+            font-weight: 900;
+            color: var(--neon-gold);
+            letter-spacing: 2.5px;
+            margin: 8px 0;
+        }
+
+        /* Action Buttons */
+        .btn-action {
+            background: linear-gradient(135deg, var(--neon-gold), #ff8800);
+            color: #000;
+            font-weight: 900;
+            padding: 15px;
+            border: none;
+            border-radius: 14px;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            font-size: 14px;
+            box-shadow: 0 0 20px rgba(255, 183, 3, 0.35);
+        }
+
+        .btn-action:hover { opacity: 0.95; transform: translateY(-2px); }
+
+        /* Item Cards */
+        .item-card {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 14px;
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .btn-sm {
+            padding: 8px 14px;
+            background: var(--neon-gold);
+            color: #000;
+            border-radius: 10px;
+            text-decoration: none;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        /* Motivation Banner */
+        .motivation-card {
+            background: linear-gradient(135deg, rgba(157, 78, 221, 0.15), rgba(0, 243, 255, 0.15));
+            border: 1px solid var(--neon-purple);
+            border-radius: 18px;
+            padding: 20px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .quote-text {
+            font-size: 15px;
+            font-style: italic;
+            color: #e0aaff;
+            line-height: 1.6;
+        }
+
+        /* Chat UI */
+        .chat-box {
+            height: 250px;
+            overflow-y: auto;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            background: rgba(0, 0, 0, 0.35);
+        }
+
+        .msg {
+            max-width: 85%;
+            padding: 10px 14px;
+            border-radius: 14px;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        .msg.ai { background: rgba(0, 243, 255, 0.15); color: #b3f7ff; align-self: flex-start; }
+        .msg.user { background: rgba(255, 183, 3, 0.25); color: #ffe8b3; align-self: flex-end; }
+
+        /* Comments Box */
+        .comment-item {
+            background: rgba(255, 255, 255, 0.03);
+            border-left: 3px solid var(--neon-blue);
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-size: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="app-container">
+    <!-- Animated Brand Header -->
+    <div class="brand-header">
+        <div class="avatar-wrapper">
+            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&auto=format&fit=crop" alt="Bwaila Administrator" class="avatar-glow">
+        </div>
+        <div class="brand-title">Bwaila Academic Arena</div>
+        <div class="brand-sub">Elite English Speaking & Digital Academy</div>
+    </div>
+
+    <!-- Navigation Tabs (6 Tabs) -->
+    <div class="nav-tabs">
+        <button class="tab-btn active" onclick="switchTab('homeTab', this)">
+            <i class="fa-solid fa-house"></i> Home
+        </button>
+        <button class="tab-btn" onclick="switchTab('registerTab', this)">
+            <i class="fa-solid fa-user-plus"></i> Usajili
+        </button>
+        <button class="tab-btn" onclick="switchTab('arenaTab', this)">
+            <i class="fa-solid fa-book-open"></i> Arena & PDF
+        </button>
+        <button class="tab-btn" onclick="switchTab('aiTab', this)">
+            <i class="fa-solid fa-robot"></i> AI Tutor
+        </button>
+        <button class="tab-btn" onclick="switchTab('motivTab', this)">
+            <i class="fa-solid fa-fire"></i> Motisha
+        </button>
+        <button class="tab-btn" onclick="switchTab('giftTab', this)">
+            <i class="fa-solid fa-gift"></i> Gift Wall
+        </button>
+    </div>
+
+    <!-- TAB 0: HOME / TANGAZO LA HADHIRA -->
+    <div id="homeTab" class="tab-content active">
+        <div style="background: linear-gradient(135deg, rgba(255,183,3,0.1), rgba(0,243,255,0.1)); border: 1px solid var(--border-glass); border-radius: 20px; padding: 20px; text-align: center;">
+            <h2 style="color: var(--neon-gold); font-size: 20px; margin-bottom: 8px;">Karibu Kwenye Mapinduzi ya Lugha!</h2>
+            <p style="font-size: 13px; color: var(--text-muted); line-height: 1.6;">
+                Je, unatamani kuongea Kiingereza kwa ufasaha, kuandika bila makosa, na kuelewa kwa urahisi? <b>Bwaila Academic Arena</b> inakupa mfumo wa kisasa wa kidijitali unaokuunganisha na masomo, mazoezi ya AI, na zawadi za kipekee!
+            </p>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+            <div class="item-card" style="flex-direction: column; text-align: center; gap: 6px;">
+                <i class="fa-solid fa-microphone-lines" style="font-size: 24px; color: var(--neon-blue);"></i>
+                <b style="font-size: 13px;">Speaking Practice</b>
+                <span style="font-size: 11px; color: var(--text-muted);">Darasa la moja kwa moja la kukuondoa uoga.</span>
+            </div>
+            <div class="item-card" style="flex-direction: column; text-align: center; gap: 6px;">
+                <i class="fa-solid fa-download" style="font-size: 24px; color: var(--neon-green);"></i>
+                <b style="font-size: 13px;">Free PDF Books</b>
+                <span style="font-size: 11px; color: var(--text-muted);">Pakua vitabu vya bure ukimaliza hatua.</span>
+            </div>
+        </div>
+
+        <button class="btn-action" onclick="switchTab('registerTab', document.querySelectorAll('.tab-btn')[1])">
+            <i class="fa-solid fa-arrow-right"></i> Anza Safari Yako Leo (Jisajili)
+        </button>
+    </div>
+
+    <!-- TAB 1: USAJILI & CONTROL NUMBER -->
+    <div id="registerTab" class="tab-content">
+        <div class="input-group">
+            <label>Jina Kamili la Mwanafunzi</label>
+            <input type="text" id="regName" placeholder="Mfano: Juma Rashid">
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+            <div class="input-group">
+                <label>Namba ya Simu (WhatsApp)</label>
+                <input type="text" id="regPhone" placeholder="0712345678">
+            </div>
+            <div class="input-group">
+                <label>Mkoa / Eneo Unapotoka</label>
+                <input type="text" id="regRegion" placeholder="Dar, Arusha, Mbeya...">
+            </div>
+        </div>
+
+        <div class="input-group">
+            <label>Kiwango Chako</label>
+            <select id="regLevel">
+                <option>Beginner - Sijui Kuongea Kabisa</option>
+                <option>Intermediate - Naelewa Ila Nashindwa Kuongea</option>
+                <option>Advanced - Professional Fluency</option>
+            </select>
+        </div>
+
+        <button class="btn-action" onclick="generateControlNumber()">
+            <i class="fa-solid fa-fingerprint"></i> Kamilisha Usajili & Pata Control Number
+        </button>
+
+        <div id="ctrlBox" class="ctrl-box">
+            <div style="font-size: 11px; color: var(--text-muted);">CONTROL NUMBER YAKO:</div>
+            <div class="ctrl-number" id="ctrlNumDisplay">BAA-2026-0000</div>
+            <div style="font-size: 12px; color: var(--text-main);">Lipa TZS 30,000/= kupitia Lipa NMB / M-Pesa Till: <b>889900</b></div>
+        </div>
+    </div>
+
+    <!-- TAB 2: ARENA & SMART PDF DOWNLOADER -->
+    <div id="arenaTab" class="tab-content">
+        <div style="font-size: 13px; font-weight: bold; color: var(--neon-gold);">
+            <i class="fa-solid fa-book-bookmark"></i> Maktaba ya Vitabu & Upakuaji wa PDF
+        </div>
+
+        <div class="item-card">
+            <div>
+                <b style="font-size: 13px;">1. English Grammar Masterclass (PDF)</b>
+                <div style="font-size: 11px; color: var(--text-muted);">Mwongozo kamili wa sarufi na vitenzi.</div>
+            </div>
+            <a href="https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf" target="_blank" class="btn-sm"><i class="fa-solid fa-download"></i> Pakua</a>
+        </div>
+
+        <div class="item-card">
+            <div>
+                <b style="font-size: 13px;">2. Daily Vocabulary & Idioms (PDF)</b>
+                <div style="font-size: 11px; color: var(--text-muted);">Maneno 500 ya kutumia kila siku.</div>
+            </div>
+            <a href="https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf" target="_blank" class="btn-sm"><i class="fa-solid fa-download"></i> Pakua</a>
+        </div>
+
+        <div class="item-card">
+            <div>
+                <b style="font-size: 13px;">3. Live Speaking Zoom Arena</b>
+                <div style="font-size: 11px; color: var(--text-muted);">Kikao cha mazungumzo ya moja kwa moja.</div>
+            </div>
+            <a href="https://whatsapp.com" target="_blank" class="btn-sm" style="background: var(--neon-green);">Ingia</a>
+        </div>
+    </div>
+
+    <!-- TAB 3: AI TUTOR -->
+    <div id="aiTab" class="tab-content">
+        <div class="chat-box" id="chatBox">
+            <div class="msg ai">
+                Hello! I am your <b>Bwaila AI Elite Tutor</b>. Ask me any English question or type a sentence to correct!
+            </div>
+        </div>
+        <div class="input-group">
+            <input type="text" id="aiInput" placeholder="Type here in English or Swahili...">
+        </div>
+        <button class="btn-action" style="background: linear-gradient(135deg, var(--neon-purple), #7209b7); color: white;" onclick="sendAIMessage()">
+            <i class="fa-solid fa-paper-plane"></i> Uliza AI Tutor
+        </button>
+    </div>
+
+    <!-- TAB 4: MOTIVATION & MINDSET -->
+    <div id="motivTab" class="tab-content">
+        <div class="motivation-card">
+            <div style="font-size: 12px; color: var(--neon-gold); text-transform: uppercase; font-weight: bold;">
+                <i class="fa-solid fa-bolt"></i> Neno la Leo la Hamasa (Daily Spark)
+            </div>
+            <div class="quote-text" id="quoteDisplay">
+                "Mistari yako ya kwanza ya Kiingereza isiyo kamili ndiyo ngazi ya kwanza kuelekea ufasaha kamili. Usiogope kukosea, ongea kwa kujiamini!"
+            </div>
+            <button class="btn-sm" style="align-self: center; background: var(--neon-purple); color: white;" onclick="changeQuote()">
+                Badilisha Hamasa <i class="fa-solid fa-rotate"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- TAB 5: COMMENT & GIFT WALL -->
+    <div id="giftTab" class="tab-content">
+        <div style="font-size: 13px; font-weight: bold; color: var(--neon-pink);">
+            <i class="fa-solid fa-comments"></i> Maoni ya Wanafunzi & Zawadi ya Kitabu
+        </div>
+
+        <div class="input-group">
+            <label>Andika Maoni Yako au Pongezi kwa Bwaila</label>
+            <input type="text" id="commName" placeholder="Jina lako...">
+        </div>
+        <div class="input-group">
+            <textarea id="commText" rows="2" placeholder="Andika maoni yako hapa..."></textarea>
+        </div>
+        <button class="btn-action" style="background: linear-gradient(135deg, var(--neon-pink), #ff5400); color: white;" onclick="postComment()">
+            <i class="fa-solid fa-paper-plane"></i> Tuma Maoni & Pata Zawadi
+        </button>
+
+        <div style="font-size: 11px; color: var(--text-muted); margin-top: 5px;">Maoni ya Hivi Karibuni:</div>
+        <div id="commentContainer" style="display: flex; flex-direction: column; gap: 8px;">
+            <div class="comment-item">
+                <b>Alex Kitasa</b>
+                <span>Mfumo huu ni mkali sana! Nimejifunza mambo mengi ya Kiingereza kwa urahisi. 🔥</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function switchTab(tabId, btnElement) {
+        document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+        document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+        
+        document.getElementById(tabId).classList.add('active');
+        btnElement.classList.add('active');
+    }
+
+    function generateControlNumber() {
+        const name = document.getElementById('regName').value;
+        const phone = document.getElementById('regPhone').value;
+        const region = document.getElementById('regRegion').value;
+
+        if (!name || !phone || !region) {
+            alert('Tafadhali jaza Jina, Namba ya Simu, na Mkoa wako!');
+            return;
+        }
+
+        const randomCode = Math.floor(1000 + Math.random() * 9000);
+        const ctrlNum = `BAA-2026-${randomCode}`;
+
+        document.getElementById('ctrlNumDisplay').innerText = ctrlNum;
+        document.getElementById('ctrlBox').style.display = 'block';
+
+        alert(`Hongera ${name} kutoka ${region}! Usajili wako umepokelewa. Control Number yako ni ${ctrlNum}.`);
+    }
+
+    function sendAIMessage() {
+        const input = document.getElementById('aiInput');
+        const chatBox = document.getElementById('chatBox');
+        const text = input.value.trim();
+
+        if (!text) return;
+
+        chatBox.innerHTML += `<div class="msg user">${text}</div>`;
+        input.value = '';
+        chatBox.scrollTop = chatBox.scrollHeight;
+
+        setTimeout(() => {
+            let reply = "That is a brilliant sentence! Keep practicing your English vocabulary daily.";
+            if (text.toLowerCase().includes("habari") || text.toLowerCase().includes("hello")) {
+                reply = "Hello there! Welcome to Bwaila Elite Arena. How can I assist your language journey today?";
+            }
+            chatBox.innerHTML += `<div class="msg ai"><b>Bwaila AI:</b> ${reply}</div>`;
+            chatBox.scrollTop = chatBox.scrollHeight;
+        }, 600);
+    }
+
+    const quotes = [
+        "Lugha siyo kipaji, ni mazoezi! Kadiri unavyojaribu kuonge ndivyo ubongo unavyokubali.",
+        "Bwaila Academic Arena haikufundishi tu sarufi, inakupa ujasiri wa kusimama mbele na kuongea bila uoga.",
+        "Mafanikio ya Kiingereza yapo mikononi mwako. Tumia mfumo huu kila siku kufungua milango mipya!"
+    ];
+
+    function changeQuote() {
+        const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
+        document.getElementById('quoteDisplay').innerText = `"${randomQuote}"`;
+    }
+
+    function postComment() {
+        const name = document.getElementById('commName').value;
+        const text = document.getElementById('commText').value;
+
+        if (!name || !text) {
+            alert('Tafadhali jaza jina lako na ujumbe wa maoni!');
+            return;
+        }
+
+        const container = document.getElementById('commentContainer');
+        container.innerHTML = `
+            <div class="comment-item">
+                <b>${name}</b>
+                <span>${text}</span>
+            </div>
+        ` + container.innerHTML;
+
+        document.getElementById('commName').value = '';
+        document.getElementById('commText').value = '';
+
+        alert(`Asante sana ${name}! Kwa maoni yako mazuri, umeshinda Zawadi ya Kitabu Maalum cha Bwaila cha "English Mastery Guide" (PDF). Kiko tayari kwenye Arena tab!`);
+    }
+</script>
+
+</body>
+</html>
